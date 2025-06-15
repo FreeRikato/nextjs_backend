@@ -14,7 +14,7 @@ export const POST = async (request: NextRequest) => {
                     msg: "Data validation failed for login",
                     errors: error.format(),
                 },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -25,24 +25,24 @@ export const POST = async (request: NextRequest) => {
         if (!response.exist || !response.user)
             return NextResponse.json(
                 { msg: "User not found" },
-                { status: 403 }
+                { status: 403 },
             );
 
         const passwordValidation = await comparePassword(
             password,
-            response.user.password
+            response.user.password,
         );
 
         if (!passwordValidation)
             return NextResponse.json(
                 { msg: "Password is incorrect" },
-                { status: 403 }
+                { status: 403 },
             );
 
         const token = await generateToken(email);
         return NextResponse.json(
             { msg: "User logged in successfully", token: token },
-            { status: 200 }
+            { status: 200 },
         );
     } catch (e) {
         console.error(`Error in login: ${e}`);
@@ -52,7 +52,7 @@ export const POST = async (request: NextRequest) => {
                     e instanceof Error ? e.message : String(e)
                 }`,
             },
-            { status: 400 }
+            { status: 400 },
         );
     }
 };

@@ -1,45 +1,47 @@
-"use client"
-import { useEffect, useState } from "react"
-import { userDetail } from "@/types/user"
+"use client";
+import { useEffect, useState } from "react";
+import { userDetail } from "@/types/user";
 
 const Signup = () => {
-
-    const [email, setEmail] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
     const onclickHandler = async () => {
         try {
-            const userDetail: userDetail = { email, password }
+            const userDetail: userDetail = { email, password };
             const response = await fetch(`/api/user/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(userDetail)
-            })
-            const data = await response.json()
-            console.log(data.response)
+                body: JSON.stringify(userDetail),
+            });
+            const data = await response.json();
+            console.log(data.response);
         } catch (e) {
-            console.error(`Error sending the post request for signup: ${e}`)
+            console.error(`Error sending the post request for signup: ${e}`);
         }
-    }
+    };
 
     useEffect(() => {
-        console.log("Email: ", email)
-        console.log("Password: ", password)
-    }, [email, password])
+        console.log("Email: ", email);
+        console.log("Password: ", password);
+    }, [email, password]);
 
-    return (<>
-        <input
-            value={email}
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-            value={password}
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={onclickHandler}>Submit</button>
-    </>)
-}
+    return (
+        <>
+            <input
+                value={email}
+                placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+                value={password}
+                placeholder="Enter password"
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={onclickHandler}>Submit</button>
+        </>
+    );
+};
 
-export default Signup
+export default Signup;
+
